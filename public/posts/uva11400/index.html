@@ -3,23 +3,20 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="
-  Lighting System Design
-  #
+<meta name="description" content="题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡
+需要注意的是，每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
 
-题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡
-理清楚以下几点是解开该题的关键
-
-每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”
-每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
-
-可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”）
+排除“部分替换”，“间接替换”，“嵌套替换”方案
 剩下一些需要具体计算的“次优方案”
-最后比较“次有方案”得出，全局的，唯一的，“最优方案”
+最后比较“次有方案”得出全局相关的唯一“最优方案”
 
+理解并排除一下三种非次优方案（可以证明一定不是最优方案的候选）非常关键：
 
+不存在“部分替换”：每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”
+不存在“间接替换”：若一种灯泡作为被替换的目标，则它不再可能再替换为别的灯泡，相当于该种灯泡不替换
+不存在“嵌套替换”：存在多种灯泡时，若低电压灯泡替换到高号灯泡，且中电压灯泡作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除
 
-我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。
+我们接下来分别证明这三条结论。
 
   排除“部分替换”
   #
@@ -53,18 +50,72 @@
       
   
 
-当 C1 &gt;= C2 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K1 电源钱">
+当 C1 &gt;= C2 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K1 电源钱
+当 C1 &lt; C2 时，将1号灯泡部分替换2号灯泡，只是在徒增成本。此时该采用哪种方案的关键，就是判断 因灯泡单价上涨而所需的钱 是否大于 买电源的钱
+
+当 (C2 - C1) * L1 &gt; C1 * L1 &#43; K1 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“
+反之，选择“全部替换”，虽然灯泡单价更高，但通过不买1号灯泡的电源来省钱
+
+得出结论一：每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”
+
+
+
+从此节之后，将不再讨论“部分替换”，如提到替换，必然是“全部替换”。
+
+  排除”间接替换“
+  #
+
+
+  
+      
+          序号
+          电压
+          电源价格
+          灯泡单价
+          所需数量
+      
+  
+  
+      
+          1
+          低
+          K1
+          C1
+          L1
+      
+      
+          2
+          中
+          K2
+          C2
+          L2
+      
+      
+          3
+          高
+          K3
+          C3
+          L3
+      
+  
+
+对于上面三种灯泡，存在这样的次优替换方案：1号 替换为 2号 ， 2号 替换为 3号">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/uva11400/">
   <meta property="og:site_name" content="Cola">
   <meta property="og:title" content="Uva11400 Lighting System Design">
-  <meta property="og:description" content="Lighting System Design # 题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡
-理清楚以下几点是解开该题的关键
-每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换” 每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本 可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”） 剩下一些需要具体计算的“次优方案” 最后比较“次有方案”得出，全局的，唯一的，“最优方案” 我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。
+  <meta property="og:description" content="题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡
+需要注意的是，每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
+排除“部分替换”，“间接替换”，“嵌套替换”方案 剩下一些需要具体计算的“次优方案” 最后比较“次有方案”得出全局相关的唯一“最优方案” 理解并排除一下三种非次优方案（可以证明一定不是最优方案的候选）非常关键：
+不存在“部分替换”：每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换” 不存在“间接替换”：若一种灯泡作为被替换的目标，则它不再可能再替换为别的灯泡，相当于该种灯泡不替换 不存在“嵌套替换”：存在多种灯泡时，若低电压灯泡替换到高号灯泡，且中电压灯泡作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除 我们接下来分别证明这三条结论。
 排除“部分替换” # 不可能部分替换这一点非常好证明
 现有两种电压的灯泡
-序号 电压 电源价格 灯泡单价 所需数量 1 低 K1 C1 L1 2 高 K2 C2 L2 当 C1 &gt;= C2 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K1 电源钱">
+序号 电压 电源价格 灯泡单价 所需数量 1 低 K1 C1 L1 2 高 K2 C2 L2 当 C1 &gt;= C2 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K1 电源钱
+当 C1 &lt; C2 时，将1号灯泡部分替换2号灯泡，只是在徒增成本。此时该采用哪种方案的关键，就是判断 因灯泡单价上涨而所需的钱 是否大于 买电源的钱
+当 (C2 - C1) * L1 &gt; C1 * L1 &#43; K1 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“ 反之，选择“全部替换”，虽然灯泡单价更高，但通过不买1号灯泡的电源来省钱 得出结论一：每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”
+从此节之后，将不再讨论“部分替换”，如提到替换，必然是“全部替换”。
+排除”间接替换“ # 序号 电压 电源价格 灯泡单价 所需数量 1 低 K1 C1 L1 2 中 K2 C2 L2 3 高 K3 C3 L3 对于上面三种灯泡，存在这样的次优替换方案：1号 替换为 2号 ， 2号 替换为 3号">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -78,7 +129,7 @@
 <link rel="canonical" href="http://localhost:1313/posts/uva11400/">
 <link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f84d0f9aa00bbb4ed108f48b0f240f2a07539caa3dc5b45193d567aa75b4f7ed.js" integrity="sha256-&#43;E0PmqALu07RCPSLDyQPKgdTnKo9xbRRk9VnqnW09&#43;0=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.bd93120c6bee7f4f929e9358549dc3fd6bffc0dd48d4211b5a30f49e2b1962c5.js" integrity="sha256-vZMSDGvuf0&#43;SnpNYVJ3D/Wv/wN1I1CEbWjD0nisZYsU=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -182,7 +233,9 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#排除部分替换">排除“部分替换”</a></li>
     <li><a href="#排除间接替换">排除”间接替换“</a></li>
-    <li><a href="#排除某些一般方案">排除某些一般方案</a></li>
+    <li><a href="#排除嵌套替换">排除“嵌套替换”</a></li>
+    <li><a href="#动态规划">动态规划</a></li>
+    <li><a href="#完整代码">完整代码</a></li>
   </ul>
 </nav>
 
@@ -223,23 +276,20 @@ https://github.com/alex-shpak/hugo-book
   
 
 
-  <div class="book-post-content"><h1 id="lighting-system-design">
-  Lighting System Design
-  <a class="anchor" href="#lighting-system-design">#</a>
-</h1>
-<p>题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡</p>
-<p>理清楚以下几点是解开该题的关键</p>
-<ul>
-<li>每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”</li>
-<li>每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
+  <div class="book-post-content"><p>题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡</p>
+<p>需要注意的是，每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本</p>
 <ol>
-<li>可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”）</li>
+<li>排除“部分替换”，“间接替换”，“嵌套替换”方案</li>
 <li>剩下一些需要具体计算的“次优方案”</li>
-<li>最后比较“次有方案”得出，全局的，唯一的，“最优方案”</li>
+<li>最后比较“次有方案”得出全局相关的唯一“最优方案”</li>
 </ol>
-</li>
-</ul>
-<p>我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。</p>
+<p>理解并排除一下三种非次优方案（可以证明一定不是最优方案的候选）非常关键：</p>
+<ol>
+<li>不存在“部分替换”：每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”</li>
+<li>不存在“间接替换”：若一种灯泡作为被替换的目标，则它不再可能再替换为别的灯泡，相当于该种灯泡不替换</li>
+<li>不存在“嵌套替换”：存在多种灯泡时，若低电压灯泡替换到高号灯泡，且中电压灯泡作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除</li>
+</ol>
+<p>我们接下来分别证明这三条结论。</p>
 <h2 id="排除部分替换">
   排除“部分替换”
   <a class="anchor" href="#%e6%8e%92%e9%99%a4%e9%83%a8%e5%88%86%e6%9b%bf%e6%8d%a2">#</a>
@@ -260,31 +310,29 @@ https://github.com/alex-shpak/hugo-book
       <tr>
           <td>1</td>
           <td>低</td>
-          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>K<sub>1</sub></td>
+          <td>C<sub>1</sub></td>
+          <td>L<sub>1</sub></td>
       </tr>
       <tr>
           <td>2</td>
           <td>高</td>
-          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>K<sub>2</sub></td>
+          <td>C<sub>2</sub></td>
+          <td>L<sub>2</sub></td>
       </tr>
   </tbody>
 </table>
-<p>当 C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &gt;= C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K<!-- raw HTML omitted -->1<!-- raw HTML omitted --> 电源钱</p>
-<p>当 C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &lt; C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，将1号灯泡部分替换2号灯泡，只是在徒增成本。此时该采用哪种方案的关键，就是判断 因灯泡单价上涨而所需的钱 是否大于 买电源的钱</p>
+<p>当 C<sub>1</sub> &gt;= C<sub>2</sub> 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K<sub>1</sub> 电源钱</p>
+<p>当 C<sub>1</sub> &lt; C<sub>2</sub> 时，将1号灯泡部分替换2号灯泡，只是在徒增成本。此时该采用哪种方案的关键，就是判断 因灯泡单价上涨而所需的钱 是否大于 买电源的钱</p>
 <ul>
-<li>当 (C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> - C<!-- raw HTML omitted -->1<!-- raw HTML omitted -->) * L<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &gt; C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> * L<!-- raw HTML omitted -->1<!-- raw HTML omitted --> + K<!-- raw HTML omitted -->1<!-- raw HTML omitted --> 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“</li>
+<li>当 (C<sub>2</sub> - C<sub>1</sub>) * L<sub>1</sub> &gt; C<sub>1</sub> * L<sub>1</sub> + K<sub>1</sub> 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“</li>
 <li>反之，选择“全部替换”，虽然灯泡单价更高，但通过不买1号灯泡的电源来省钱</li>
 </ul>
 <p>得出结论一：<strong>每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”</strong></p>
-<p>{{ with resources.Get &ldquo;/img/Uva11400.png.jpg&rdquo; }}
-{{ with .Resize &ldquo;300x webp q85 lanczos&rdquo; }}
-<!-- raw HTML omitted -->
-{{ end }}
-{{ end }}</p>
+<div align="center">
+<img src="/img/Uva11400_1.png" alt="#" width="300px"/>
+</div>
 <p>从此节之后，将不再讨论“部分替换”，如提到替换，必然是“全部替换”。</p>
 <h2 id="排除间接替换">
   排除”间接替换“
@@ -304,27 +352,27 @@ https://github.com/alex-shpak/hugo-book
       <tr>
           <td>1</td>
           <td>低</td>
-          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>K<sub>1</sub></td>
+          <td>C<sub>1</sub></td>
+          <td>L<sub>1</sub></td>
       </tr>
       <tr>
           <td>2</td>
           <td>中</td>
-          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>K<sub>2</sub></td>
+          <td>C<sub>2</sub></td>
+          <td>L<sub>2</sub></td>
       </tr>
       <tr>
           <td>3</td>
           <td>高</td>
-          <td>K<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+          <td>K<sub>3</sub></td>
+          <td>C<sub>3</sub></td>
+          <td>L<sub>3</sub></td>
       </tr>
   </tbody>
 </table>
-<p>对于上面三种灯泡，是否存在这样的次优替换方案：1号 替换为 2号 ， 2号 替换为 3号</p>
+<p>对于上面三种灯泡，存在这样的次优替换方案：1号 替换为 2号 ， 2号 替换为 3号</p>
 <p>首先要明确的是，我们的最优替换方案是题目出来后就确定的，全局的，唯一的。替换不分步骤，也不分先后顺序。对于上面提出的替换方案，好像在说，我先这样替换，再那样替换，这其实是不存在的。对于上面这种替换方案，在不分先后的情况下，有二义性。</p>
 <ol>
 <li>将原来的2号灯泡全部替换为3号灯泡，然后将保留1号灯泡替换过来的2号灯泡。</li>
@@ -333,10 +381,12 @@ https://github.com/alex-shpak/hugo-book
 <p>其实很好证明，第一种情况是需要排除的，如果保留1号灯泡替换过来的2号灯泡，不就代表着2号灯泡发生了”部分替换“吗？”部分替换“的方案已经被我们否决了。</p>
 <p>而第二种情况，我们其实可以干脆给他归类为这种方案：1号灯泡与2号灯泡，均替换为3号灯泡</p>
 <p>得出结论二：<strong>若一种灯泡作为被替换的目标，则它不再可能再替换为别的灯泡，相当于该种灯泡不替换</strong></p>
-<p><img src="/img/Uva11400_2.png" alt="#" /></p>
-<h2 id="排除某些一般方案">
-  排除某些一般方案
-  <a class="anchor" href="#%e6%8e%92%e9%99%a4%e6%9f%90%e4%ba%9b%e4%b8%80%e8%88%ac%e6%96%b9%e6%a1%88">#</a>
+<div align="center">
+<img src="/img/Uva11400_2.png" alt="#" width="300px"/>
+</div>
+<h2 id="排除嵌套替换">
+  排除“嵌套替换”
+  <a class="anchor" href="#%e6%8e%92%e9%99%a4%e5%b5%8c%e5%a5%97%e6%9b%bf%e6%8d%a2">#</a>
 </h2>
 <p>剔除掉“部分替换”的方案后，接下来来看看怎么剔除一些不是那么好的，明显可以优化的方案。</p>
 <p>1种灯泡谈不上替换，2种灯泡的情况我们其实已经在讨论过了（在排除“部分替换”节中）。现在来看下3种灯泡的情况</p>
@@ -354,23 +404,23 @@ https://github.com/alex-shpak/hugo-book
       <tr>
           <td>1</td>
           <td>低</td>
-          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>K<sub>1</sub></td>
+          <td>C<sub>1</sub></td>
+          <td>L<sub>1</sub></td>
       </tr>
       <tr>
           <td>2</td>
           <td>中</td>
-          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>K<sub>2</sub></td>
+          <td>C<sub>2</sub></td>
+          <td>L<sub>2</sub></td>
       </tr>
       <tr>
           <td>3</td>
           <td>高</td>
-          <td>K<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+          <td>K<sub>3</sub></td>
+          <td>C<sub>3</sub></td>
+          <td>L<sub>3</sub></td>
       </tr>
   </tbody>
 </table>
@@ -385,8 +435,8 @@ https://github.com/alex-shpak/hugo-book
 <p>对于二号方案，有可能作为最优方案，比如3号灯泡单价出奇的高，导致低电压灯泡就算加上电源价格都只能望其项背</p>
 <p>先来看四号方案，其实与二号方案类似，设想1号灯泡和电源都非常便宜，而2号灯泡和3号灯泡都出奇的贵，只是2号相对3号便宜点</p>
 <p>最后来看下三号方案，其实是可以证明出3号方案存在优化空间的（也就是说，3号方案一定不是最优方案，可以排除）</p>
-<p>先来想想为什么2号不替换为3号，其实我们在“部分替换”节中讨论过，只有当(C<!-- raw HTML omitted -->3<!-- raw HTML omitted --> - C<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) * L<!-- raw HTML omitted -->2<!-- raw HTML omitted --> &gt; C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> * L<!-- raw HTML omitted -->2<!-- raw HTML omitted --> + K<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，也就是换灯泡不如买2号电源时才会发生，注意此时C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> &lt; C<!-- raw HTML omitted -->3<!-- raw HTML omitted -->。</p>
-<p>那既然C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> &lt; C<!-- raw HTML omitted -->3<!-- raw HTML omitted -->，那为什么1号灯泡不替换成2号灯泡呢，明明灯泡单价更低呀，而且因为2号灯泡不替换，所以2号电源也必然是已经要买的。</p>
+<p>先来想想为什么2号不替换为3号，其实我们在“部分替换”节中讨论过，只有当(C<sub>3</sub> - C<sub>2</sub>) * L<sub>2</sub> &gt; C<sub>2</sub> * L<sub>2</sub> + K<sub>2</sub> 时，也就是换灯泡不如买2号电源时才会发生，注意此时C<sub>2</sub> &lt; C<sub>3</sub>。</p>
+<p>那既然C<sub>2</sub> &lt; C<sub>3</sub>，那为什么1号灯泡不替换成2号灯泡呢，明明灯泡单价更低呀，而且因为2号灯泡不替换，所以2号电源也必然是已经要买的。</p>
 <p>我们发现三号方案是一定可以优化成二号方案的，所以我们可以直接排除掉这个一定不是最优的“一般方案”。</p>
 <p>接下来，我们拓展一下这个例子，假设现在有多个灯泡</p>
 <table>
@@ -410,9 +460,9 @@ https://github.com/alex-shpak/hugo-book
       <tr>
           <td>x</td>
           <td>低</td>
-          <td>K<!-- raw HTML omitted -->x<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->x<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->x<!-- raw HTML omitted --></td>
+          <td>K<sub>x</sub></td>
+          <td>C<sub>x</sub></td>
+          <td>L<sub>x</sub></td>
       </tr>
       <tr>
           <td>&hellip;</td>
@@ -424,9 +474,9 @@ https://github.com/alex-shpak/hugo-book
       <tr>
           <td>y</td>
           <td>中</td>
-          <td>K<!-- raw HTML omitted -->y<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->y<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->y<!-- raw HTML omitted --></td>
+          <td>K<sub>y</sub></td>
+          <td>C<sub>y</sub></td>
+          <td>L<sub>y</sub></td>
       </tr>
       <tr>
           <td>&hellip;</td>
@@ -438,9 +488,9 @@ https://github.com/alex-shpak/hugo-book
       <tr>
           <td>z</td>
           <td>高</td>
-          <td>K<!-- raw HTML omitted -->z<!-- raw HTML omitted --></td>
-          <td>C<!-- raw HTML omitted -->z<!-- raw HTML omitted --></td>
-          <td>L<!-- raw HTML omitted -->z<!-- raw HTML omitted --></td>
+          <td>K<sub>z</sub></td>
+          <td>C<sub>z</sub></td>
+          <td>L<sub>z</sub></td>
       </tr>
       <tr>
           <td>&hellip;下面是电压更高的灯泡</td>
@@ -459,11 +509,114 @@ https://github.com/alex-shpak/hugo-book
 <li>若z号灯泡单价更低，那“某种灯泡”和y号灯泡都应该替换到z号灯泡</li>
 <li>若y号灯泡单价更低，就算加上y号电源也更划算（y号灯泡必不发生替换，详见结论二），那“某种灯泡”和x号灯泡都应该替换到y号灯泡，x号灯泡不应该替换成z号灯泡</li>
 </ul>
-<p>至此，我们可以得出结论三：<strong>若x号灯泡替换到z号灯泡，若中间的灯泡（例如y号灯泡）作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除</strong></p>
-<p><img src="/img/Uva11400_3.png" alt="#" /></p>
-<p>好了，到此为止其实已经讨论所有可能存在的替换方案，有一些替换方案可以直接通过以上三条结论直接排除，最后我们可能发现，最优方案一定是长这个样子</p>
-<p><img src="/img/Uva11400_4.png" alt="#" /></p>
+<p>至此，我们可以得出结论三：<strong>存在多种灯泡时，若低电压灯泡替换到高号灯泡，且中电压灯泡作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除</strong></p>
+<div align="center">
+<img src="/img/Uva11400_3.png" alt="#" width="300px"/>
 </div>
+<p>好了，到此为止其实已经讨论所有可能存在的替换方案，有一些替换方案可以直接通过以上三条结论直接排除。例如下面两种替换方案都违反了第三条结论。</p>
+<div align="center">
+<img src="/img/Uva11400_6.png" alt="#" width="300px"/>
+<img src="/img/Uva11400_5.png" alt="#" width="300px"/>
+</div>
+<p>最后我们发现，三条结论过滤出来的<strong>次优方案</strong>只能差不多是长这个样子，没有相互交叉的箭头，而我们将通过计算比较这些次优方案得出最优方案</p>
+<div align="center">
+<img src="/img/Uva11400_4.png" alt="#" width="300px"/>
+</div>
+<h2 id="动态规划">
+  动态规划
+  <a class="anchor" href="#%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92">#</a>
+</h2>
+<p>观察上节的最后一张图片，我们可以发现灯泡的“次优方案”将灯泡们分成一组一组的，每一组中，所有灯泡都替换成该组中最后一种灯泡（不替换也可以看成自成一组）。</p>
+<p>我们往最后添加一种最高电压的灯泡时，最后一组灯泡的替换方案将发生变化，从而导致除开最后一组的所有前面灯泡的替换方案也发生变化。此时我们就需要利用动态规划的记忆性质，直接得到前面所有灯泡的最优方案。</p>
+<p>现假设灯泡都已经按电压排序（从0开始计数）,d[i]表示从0号灯泡到i号灯泡的<strong>最优方案</strong>的成本,sum[i]表示从0号灯泡到i号灯泡的所需灯泡总数量</p>
+<p>灯泡按电压一个一个添加上去，每当添加一个最高压灯泡时，<strong>我们遍历最后一组灯泡分组的所有可能性</strong>（这将产生许多次优方案，之后将比较它们），而前面的所有灯泡的最优方案成本我们已经在之前的遍历中计算过了，直接拿来用</p>
+<div align="center">
+<img src="/img/Uva11400_7.png" alt="#" width="300px"/>
+</div>
+<p>状态转移方程：<code>d[i] = Math.min(d[i],d[j-1] + (sum[i] - sum[j-1]) * lights[i].c + lights[i].k)</code>，其中</p>
+<ul>
+<li>j号灯泡是最后分组的开头第一个灯泡</li>
+<li>0～j-1号灯泡的最优方案已经在之前的遍历中计算出来了</li>
+<li>j～i号灯泡为最后一组灯泡</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> d <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>n<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>d<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">k</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    d<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> sum<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">*</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">k</span>; <span style="color:#75715e">//先假设全部灯泡替换成i号灯泡</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 将 j～i号灯泡 替换成 i号灯泡，而0～j-1号灯泡的最优方案成本之前已经算过了，直接拿来用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 1; j <span style="color:#f92672">&lt;=</span> i; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        d<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(d<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>,d<span style="color:#f92672">[</span>j<span style="color:#f92672">-</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> (sum<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> sum<span style="color:#f92672">[</span>j<span style="color:#f92672">-</span>1<span style="color:#f92672">]</span>) <span style="color:#f92672">*</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">k</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="完整代码">
+  完整代码
+  <a class="anchor" href="#%e5%ae%8c%e6%95%b4%e4%bb%a3%e7%a0%81">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Arrays;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Comparator;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Scanner;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UVa11400</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Scanner sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (sc.<span style="color:#a6e22e">hasNext</span>()) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 读入数据，并将灯泡按电压种类排序</span>
+</span></span><span style="display:flex;"><span>            Light<span style="color:#f92672">[]</span> lights <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Light<span style="color:#f92672">[</span>n<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Light(sc.<span style="color:#a6e22e">nextInt</span>(), sc.<span style="color:#a6e22e">nextInt</span>(), sc.<span style="color:#a6e22e">nextInt</span>(), sc.<span style="color:#a6e22e">nextInt</span>());
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            Arrays.<span style="color:#a6e22e">sort</span>(lights, Comparator.<span style="color:#a6e22e">comparingInt</span>(l <span style="color:#f92672">-&gt;</span> l.<span style="color:#a6e22e">v</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 当前电压与小于当前电压的灯泡所需数量和</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> sum <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>n<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            sum<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">l</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                sum<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> sum<span style="color:#f92672">[</span>i <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">l</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 0～i号灯泡的最小成本</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> d <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>n<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            d<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.<span style="color:#a6e22e">k</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                d<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> sum<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">*</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">k</span>; <span style="color:#75715e">//全部替换成i号灯泡</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 将 j～i号灯泡 替换成 i号灯泡，</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 1; j <span style="color:#f92672">&lt;=</span> i; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                    d<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(d<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>,d<span style="color:#f92672">[</span>j<span style="color:#f92672">-</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> (sum<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> sum<span style="color:#f92672">[</span>j<span style="color:#f92672">-</span>1<span style="color:#f92672">]</span>) <span style="color:#f92672">*</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> lights<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">k</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(d<span style="color:#f92672">[</span>n<span style="color:#f92672">-</span>1<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Light</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v; <span style="color:#75715e">// 电压</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> k; <span style="color:#75715e">// 电源价格</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c; <span style="color:#75715e">// 灯泡单价</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> l; <span style="color:#75715e">// 所需数量</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Light</span>(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> k, <span style="color:#66d9ef">int</span> c, <span style="color:#66d9ef">int</span> l) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> k;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> c;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> l;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div>
 </article>
  
       
@@ -507,7 +660,9 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#排除部分替换">排除“部分替换”</a></li>
     <li><a href="#排除间接替换">排除”间接替换“</a></li>
-    <li><a href="#排除某些一般方案">排除某些一般方案</a></li>
+    <li><a href="#排除嵌套替换">排除“嵌套替换”</a></li>
+    <li><a href="#动态规划">动态规划</a></li>
+    <li><a href="#完整代码">完整代码</a></li>
   </ul>
 </nav>
 
