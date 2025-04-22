@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/">
+  <meta property="og:site_name" content="Cola">
+  <meta property="og:title" content="Blog">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+<title>Blog | Cola</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/posts/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.f84d0f9aa00bbb4ed108f48b0f240f2a07539caa3dc5b45193d567aa75b4f7ed.js" integrity="sha256-&#43;E0PmqALu07RCPSLDyQPKgdTnKo9xbRRk9VnqnW09&#43;0=" crossorigin="anonymous"></script>
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/posts/index.xml" title="Cola" />
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Cola</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Blog</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav>
+  <ul>
+  
+    
+    <li class="book-section-flat">
+      <strong>Categories</strong>
+      <ul>
+      
+        <li class="flex justify-between">
+          <a href="/categories/dp/">Dp</a>
+          <span>1</span>
+        </li>
+      
+      </ul>
+    </li>
+    
+  
+    
+    <li class="book-section-flat">
+      <strong>Tags</strong>
+      <ul>
+      
+        <li class="flex justify-between">
+          <a href="/tags/dp/">Dp</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/uva/">Uva</a>
+          <span>1</span>
+        </li>
+      
+      </ul>
+    </li>
+    
+  
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  
+  <article class="markdown book-post">
+    <h2>
+      <a href="/posts/uva11400/">Uva11400 Lighting System Design</a>
+    </h2>
+    
+  <div class="flex align-center text-small book-post-date">
+    <img src="/svg/calendar.svg" class="book-icon " alt="" />
+    <span>April 22, 2025</span>
+  </div>
+
+
+
+  
+  <div class="text-small">
+    
+      <a href="/categories/dp/">Dp</a>
+  </div>
+  
+
+  
+  <div class="text-small">
+    
+      <a href="/tags/dp/">Dp</a>, 
+      <a href="/tags/uva/">Uva</a>
+  </div>
+  
+
+
+    <div class="book-post-content"><h1 id="lighting-system-design">
+  Lighting System Design
+  <a class="anchor" href="#lighting-system-design">#</a>
+</h1>
+<p>题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡</p>
+<p>理清楚以下几点是解开该题的关键</p>
+<ul>
+<li>每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”</li>
+<li>每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
+<ol>
+<li>可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”）</li>
+<li>剩下一些需要具体计算的“次优方案”</li>
+<li>最后比较“次有方案”得出，全局的，唯一的，“最优方案”</li>
+</ol>
+</li>
+</ul>
+<p>我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。</p>
+<h2 id="排除部分替换">
+  排除“部分替换”
+  <a class="anchor" href="#%e6%8e%92%e9%99%a4%e9%83%a8%e5%88%86%e6%9b%bf%e6%8d%a2">#</a>
+</h2>
+<p>不可能部分替换这一点非常好证明</p>
+<p>现有两种电压的灯泡</p>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>电压</th>
+          <th>电源价格</th>
+          <th>灯泡单价</th>
+          <th>所需数量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>低</td>
+          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>高</td>
+          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+      </tr>
+  </tbody>
+</table>
+<p>当 C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &gt;= C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K<!-- raw HTML omitted -->1<!-- raw HTML omitted --> 电源钱</p>
+        <a href="/posts/uva11400/">...</a>
+      
+    </div>
+  </article>
+  
+
+  
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  <nav>
+  <ul>
+  
+    
+    <li class="book-section-flat">
+      <strong>Categories</strong>
+      <ul>
+      
+        <li class="flex justify-between">
+          <a href="/categories/dp/">Dp</a>
+          <span>1</span>
+        </li>
+      
+      </ul>
+    </li>
+    
+  
+    
+    <li class="book-section-flat">
+      <strong>Tags</strong>
+      <ul>
+      
+        <li class="flex justify-between">
+          <a href="/tags/dp/">Dp</a>
+          <span>1</span>
+        </li>
+      
+        <li class="flex justify-between">
+          <a href="/tags/uva/">Uva</a>
+          <span>1</span>
+        </li>
+      
+      </ul>
+    </li>
+    
+  
+  </ul>
+</nav>
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

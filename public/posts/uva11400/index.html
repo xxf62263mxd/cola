@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Lighting System Design
+  #
+
+题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡
+理清楚以下几点是解开该题的关键
+
+每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”
+每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
+
+可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”）
+剩下一些需要具体计算的“次优方案”
+最后比较“次有方案”得出，全局的，唯一的，“最优方案”
+
+
+
+我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。
+
+  排除“部分替换”
+  #
+
+不可能部分替换这一点非常好证明
+现有两种电压的灯泡
+
+  
+      
+          序号
+          电压
+          电源价格
+          灯泡单价
+          所需数量
+      
+  
+  
+      
+          1
+          低
+          K1
+          C1
+          L1
+      
+      
+          2
+          高
+          K2
+          C2
+          L2
+      
+  
+
+当 C1 &gt;= C2 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K1 电源钱">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/uva11400/">
+  <meta property="og:site_name" content="Cola">
+  <meta property="og:title" content="Uva11400 Lighting System Design">
+  <meta property="og:description" content="Lighting System Design # 题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡
+理清楚以下几点是解开该题的关键
+每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换” 每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本 可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”） 剩下一些需要具体计算的“次优方案” 最后比较“次有方案”得出，全局的，唯一的，“最优方案” 我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。
+排除“部分替换” # 不可能部分替换这一点非常好证明
+现有两种电压的灯泡
+序号 电压 电源价格 灯泡单价 所需数量 1 低 K1 C1 L1 2 高 K2 C2 L2 当 C1 &gt;= C2 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K1 电源钱">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-04-22T00:00:00+00:00">
+    <meta property="article:tag" content="Dp">
+    <meta property="article:tag" content="Uva">
+<title>Uva11400 Lighting System Design | Cola</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/posts/uva11400/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.f84d0f9aa00bbb4ed108f48b0f240f2a07539caa3dc5b45193d567aa75b4f7ed.js" integrity="sha256-&#43;E0PmqALu07RCPSLDyQPKgdTnKo9xbRRk9VnqnW09&#43;0=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Cola</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Uva11400 Lighting System Design</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#排除部分替换">排除“部分替换”</a></li>
+    <li><a href="#排除间接替换">排除”间接替换“</a></li>
+    <li><a href="#排除某些一般方案">排除某些一般方案</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    Uva11400 Lighting System Design
+  </h1>
+  
+  <div class="flex align-center text-small book-post-date">
+    <img src="/svg/calendar.svg" class="book-icon " alt="" />
+    <span>April 22, 2025</span>
+  </div>
+
+
+
+  
+  <div class="text-small">
+    
+      <a href="/categories/dp/">Dp</a>
+  </div>
+  
+
+  
+  <div class="text-small">
+    
+      <a href="/tags/dp/">Dp</a>, 
+      <a href="/tags/uva/">Uva</a>
+  </div>
+  
+
+
+  <div class="book-post-content"><h1 id="lighting-system-design">
+  Lighting System Design
+  <a class="anchor" href="#lighting-system-design">#</a>
+</h1>
+<p>题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡</p>
+<p>理清楚以下几点是解开该题的关键</p>
+<ul>
+<li>每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”</li>
+<li>每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本
+<ol>
+<li>可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”）</li>
+<li>剩下一些需要具体计算的“次优方案”</li>
+<li>最后比较“次有方案”得出，全局的，唯一的，“最优方案”</li>
+</ol>
+</li>
+</ul>
+<p>我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。</p>
+<h2 id="排除部分替换">
+  排除“部分替换”
+  <a class="anchor" href="#%e6%8e%92%e9%99%a4%e9%83%a8%e5%88%86%e6%9b%bf%e6%8d%a2">#</a>
+</h2>
+<p>不可能部分替换这一点非常好证明</p>
+<p>现有两种电压的灯泡</p>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>电压</th>
+          <th>电源价格</th>
+          <th>灯泡单价</th>
+          <th>所需数量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>低</td>
+          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>高</td>
+          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+      </tr>
+  </tbody>
+</table>
+<p>当 C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &gt;= C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K<!-- raw HTML omitted -->1<!-- raw HTML omitted --> 电源钱</p>
+<p>当 C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &lt; C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，将1号灯泡部分替换2号灯泡，只是在徒增成本。此时该采用哪种方案的关键，就是判断 因灯泡单价上涨而所需的钱 是否大于 买电源的钱</p>
+<ul>
+<li>当 (C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> - C<!-- raw HTML omitted -->1<!-- raw HTML omitted -->) * L<!-- raw HTML omitted -->1<!-- raw HTML omitted --> &gt; C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> * L<!-- raw HTML omitted -->1<!-- raw HTML omitted --> + K<!-- raw HTML omitted -->1<!-- raw HTML omitted --> 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“</li>
+<li>反之，选择“全部替换”，虽然灯泡单价更高，但通过不买1号灯泡的电源来省钱</li>
+</ul>
+<p>得出结论一：<strong>每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”</strong></p>
+<p>{{ with resources.Get &ldquo;/img/Uva11400.png.jpg&rdquo; }}
+{{ with .Resize &ldquo;300x webp q85 lanczos&rdquo; }}
+<!-- raw HTML omitted -->
+{{ end }}
+{{ end }}</p>
+<p>从此节之后，将不再讨论“部分替换”，如提到替换，必然是“全部替换”。</p>
+<h2 id="排除间接替换">
+  排除”间接替换“
+  <a class="anchor" href="#%e6%8e%92%e9%99%a4%e9%97%b4%e6%8e%a5%e6%9b%bf%e6%8d%a2">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>电压</th>
+          <th>电源价格</th>
+          <th>灯泡单价</th>
+          <th>所需数量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>低</td>
+          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>中</td>
+          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>高</td>
+          <td>K<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+      </tr>
+  </tbody>
+</table>
+<p>对于上面三种灯泡，是否存在这样的次优替换方案：1号 替换为 2号 ， 2号 替换为 3号</p>
+<p>首先要明确的是，我们的最优替换方案是题目出来后就确定的，全局的，唯一的。替换不分步骤，也不分先后顺序。对于上面提出的替换方案，好像在说，我先这样替换，再那样替换，这其实是不存在的。对于上面这种替换方案，在不分先后的情况下，有二义性。</p>
+<ol>
+<li>将原来的2号灯泡全部替换为3号灯泡，然后将保留1号灯泡替换过来的2号灯泡。</li>
+<li>将原来的2号灯泡和1号替换过来的2号灯泡，均替换为3号灯泡。</li>
+</ol>
+<p>其实很好证明，第一种情况是需要排除的，如果保留1号灯泡替换过来的2号灯泡，不就代表着2号灯泡发生了”部分替换“吗？”部分替换“的方案已经被我们否决了。</p>
+<p>而第二种情况，我们其实可以干脆给他归类为这种方案：1号灯泡与2号灯泡，均替换为3号灯泡</p>
+<p>得出结论二：<strong>若一种灯泡作为被替换的目标，则它不再可能再替换为别的灯泡，相当于该种灯泡不替换</strong></p>
+<p><img src="/img/Uva11400_2.png" alt="#" /></p>
+<h2 id="排除某些一般方案">
+  排除某些一般方案
+  <a class="anchor" href="#%e6%8e%92%e9%99%a4%e6%9f%90%e4%ba%9b%e4%b8%80%e8%88%ac%e6%96%b9%e6%a1%88">#</a>
+</h2>
+<p>剔除掉“部分替换”的方案后，接下来来看看怎么剔除一些不是那么好的，明显可以优化的方案。</p>
+<p>1种灯泡谈不上替换，2种灯泡的情况我们其实已经在讨论过了（在排除“部分替换”节中）。现在来看下3种灯泡的情况</p>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>电压</th>
+          <th>电源价格</th>
+          <th>灯泡单价</th>
+          <th>所需数量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>低</td>
+          <td>K<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->1<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>中</td>
+          <td>K<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->2<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>高</td>
+          <td>K<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->3<!-- raw HTML omitted --></td>
+      </tr>
+  </tbody>
+</table>
+<p>有一种方案我们在上一节已经讨论过了，就是“间接替换”，这里不再提出该方案。剩下还有以下方案。</p>
+<ol>
+<li>均不替换</li>
+<li>1号 替换为 2号</li>
+<li>1号 替换为 3号，2号不替换</li>
+<li>2号 替换为 3号，1号不替换</li>
+</ol>
+<p>对于一号方案，有可能作为最优方案，比如当电压越小，灯泡单价和电源价格都越便宜的情况</p>
+<p>对于二号方案，有可能作为最优方案，比如3号灯泡单价出奇的高，导致低电压灯泡就算加上电源价格都只能望其项背</p>
+<p>先来看四号方案，其实与二号方案类似，设想1号灯泡和电源都非常便宜，而2号灯泡和3号灯泡都出奇的贵，只是2号相对3号便宜点</p>
+<p>最后来看下三号方案，其实是可以证明出3号方案存在优化空间的（也就是说，3号方案一定不是最优方案，可以排除）</p>
+<p>先来想想为什么2号不替换为3号，其实我们在“部分替换”节中讨论过，只有当(C<!-- raw HTML omitted -->3<!-- raw HTML omitted --> - C<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) * L<!-- raw HTML omitted -->2<!-- raw HTML omitted --> &gt; C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> * L<!-- raw HTML omitted -->2<!-- raw HTML omitted --> + K<!-- raw HTML omitted -->2<!-- raw HTML omitted --> 时，也就是换灯泡不如买2号电源时才会发生，注意此时C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> &lt; C<!-- raw HTML omitted -->3<!-- raw HTML omitted -->。</p>
+<p>那既然C<!-- raw HTML omitted -->2<!-- raw HTML omitted --> &lt; C<!-- raw HTML omitted -->3<!-- raw HTML omitted -->，那为什么1号灯泡不替换成2号灯泡呢，明明灯泡单价更低呀，而且因为2号灯泡不替换，所以2号电源也必然是已经要买的。</p>
+<p>我们发现三号方案是一定可以优化成二号方案的，所以我们可以直接排除掉这个一定不是最优的“一般方案”。</p>
+<p>接下来，我们拓展一下这个例子，假设现在有多个灯泡</p>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>电压</th>
+          <th>电源价格</th>
+          <th>灯泡单价</th>
+          <th>所需数量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>&hellip; 上面是电压更低的灯泡</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>x</td>
+          <td>低</td>
+          <td>K<!-- raw HTML omitted -->x<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->x<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->x<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>&hellip;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>y</td>
+          <td>中</td>
+          <td>K<!-- raw HTML omitted -->y<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->y<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->y<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>&hellip;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>z</td>
+          <td>高</td>
+          <td>K<!-- raw HTML omitted -->z<!-- raw HTML omitted --></td>
+          <td>C<!-- raw HTML omitted -->z<!-- raw HTML omitted --></td>
+          <td>L<!-- raw HTML omitted -->z<!-- raw HTML omitted --></td>
+      </tr>
+      <tr>
+          <td>&hellip;下面是电压更高的灯泡</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>在x号灯泡替换为z号灯泡的情况下，能不能采用中间的y号不替换的方案？</p>
+<p>其实也是不能的，如果y号不替换，说明y号灯泡单价比z灯泡单价低，而且换成z号灯泡不如买y号电源。此时，x号灯泡不该替换成z号灯泡，而是替换成y号灯泡。</p>
+<p>进一步扩展一下，在x号灯泡替换为z号灯泡的情况下，会不会出现“某种灯泡”替换到y号的情况
+其实也是不能的，y号灯泡与z号灯泡会有单价高低之分</p>
+<ul>
+<li>若z号灯泡单价更低，那“某种灯泡”和y号灯泡都应该替换到z号灯泡</li>
+<li>若y号灯泡单价更低，就算加上y号电源也更划算（y号灯泡必不发生替换，详见结论二），那“某种灯泡”和x号灯泡都应该替换到y号灯泡，x号灯泡不应该替换成z号灯泡</li>
+</ul>
+<p>至此，我们可以得出结论三：<strong>若x号灯泡替换到z号灯泡，若中间的灯泡（例如y号灯泡）作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除</strong></p>
+<p><img src="/img/Uva11400_3.png" alt="#" /></p>
+<p>好了，到此为止其实已经讨论所有可能存在的替换方案，有一些替换方案可以直接通过以上三条结论直接排除，最后我们可能发现，最优方案一定是长这个样子</p>
+<p><img src="/img/Uva11400_4.png" alt="#" /></p>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#排除部分替换">排除“部分替换”</a></li>
+    <li><a href="#排除间接替换">排除”间接替换“</a></li>
+    <li><a href="#排除某些一般方案">排除某些一般方案</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

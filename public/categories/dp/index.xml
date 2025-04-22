@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dp on Cola</title>
+    <link>http://localhost:1313/categories/dp/</link>
+    <description>Recent content in Dp on Cola</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Uva11400 Lighting System Design</title>
+      <link>http://localhost:1313/posts/uva11400/</link>
+      <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/uva11400/</guid>
+      <description>&lt;h1 id=&#34;lighting-system-design&#34;&gt;&#xA;  Lighting System Design&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#lighting-system-design&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h1&gt;&#xA;&lt;p&gt;题意概括：买一定数量的灯泡，通过将低电压灯泡可以替换为高电压灯泡来节省成本，反过来不行，每种电压的电源可以带动无数个该电压的灯泡&lt;/p&gt;&#xA;&lt;p&gt;理清楚以下几点是解开该题的关键&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”&lt;/li&gt;&#xA;&lt;li&gt;每种电压的灯泡都可以有多种替换方案（包括“不替换“）来节省成本&#xA;&lt;ol&gt;&#xA;&lt;li&gt;可以直接排除一些明显不如其他方案的“一般方案”（如“部分替换”）&lt;/li&gt;&#xA;&lt;li&gt;剩下一些需要具体计算的“次优方案”&lt;/li&gt;&#xA;&lt;li&gt;最后比较“次有方案”得出，全局的，唯一的，“最优方案”&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;我们接下来讨论的替换，至少都建立在能够一定减少成本的情况下。&lt;/p&gt;&#xA;&lt;h2 id=&#34;排除部分替换&#34;&gt;&#xA;  排除“部分替换”&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%e6%8e%92%e9%99%a4%e9%83%a8%e5%88%86%e6%9b%bf%e6%8d%a2&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;不可能部分替换这一点非常好证明&lt;/p&gt;&#xA;&lt;p&gt;现有两种电压的灯泡&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;序号&lt;/th&gt;&#xA;          &lt;th&gt;电压&lt;/th&gt;&#xA;          &lt;th&gt;电源价格&lt;/th&gt;&#xA;          &lt;th&gt;灯泡单价&lt;/th&gt;&#xA;          &lt;th&gt;所需数量&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;低&lt;/td&gt;&#xA;          &lt;td&gt;K&lt;!-- raw HTML omitted --&gt;1&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;&#xA;          &lt;td&gt;C&lt;!-- raw HTML omitted --&gt;1&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;&#xA;          &lt;td&gt;L&lt;!-- raw HTML omitted --&gt;1&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;2&lt;/td&gt;&#xA;          &lt;td&gt;高&lt;/td&gt;&#xA;          &lt;td&gt;K&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;&#xA;          &lt;td&gt;C&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;&#xA;          &lt;td&gt;L&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;当 C&lt;!-- raw HTML omitted --&gt;1&lt;!-- raw HTML omitted --&gt; &amp;gt;= C&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt; 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K&lt;!-- raw HTML omitted --&gt;1&lt;!-- raw HTML omitted --&gt; 电源钱&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
