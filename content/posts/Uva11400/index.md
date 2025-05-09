@@ -32,13 +32,13 @@ tags : ["dp","uva"]
 当 C<sub>1</sub> >= C<sub>2</sub> 时，1号灯泡全部替换为2号灯泡明显优于部分替换（无论替换多少个），全部替换至少可以省下 K<sub>1</sub> 电源钱
 
 当 C<sub>1</sub> < C<sub>2</sub> 时，将1号灯泡部分替换2号灯泡，只是在徒增成本。此时该采用哪种方案的关键，就是判断 因灯泡单价上涨而所需的钱 是否大于 买电源的钱
-- 当 (C<sub>2</sub> - C<sub>1</sub>) * L<sub>1</sub> > C<sub>1</sub> * L<sub>1</sub> + K<sub>1</sub> 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“
+- 当 (C<sub>2</sub> - C<sub>1</sub>) * L<sub>1</sub> >  K<sub>1</sub> 时，也就是替换灯泡多出来的钱，比买1号灯泡的电源还多，则选择“不替换“
 - 反之，选择“全部替换”，虽然灯泡单价更高，但通过不买1号灯泡的电源来省钱
 
 得出结论一：**每种灯泡的替换方式只有“全部替换”和“不替换”两种，但不可能“部分替换”**
 
 <div align="center">
-<img src="/img/Uva11400_1.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_1.png" alt="#" width="300px"/>
 </div>
 
 
@@ -65,7 +65,7 @@ tags : ["dp","uva"]
 得出结论二：**若一种灯泡作为被替换的目标，则它不再可能再替换为别的灯泡，相当于该种灯泡不替换**
 
 <div align="center">
-<img src="/img/Uva11400_2.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_2.png" alt="#" width="300px"/>
 </div>
 
 ## 排除“嵌套替换”
@@ -94,7 +94,7 @@ tags : ["dp","uva"]
 
 最后来看下三号方案，其实是可以证明出3号方案存在优化空间的（也就是说，3号方案一定不是最优方案，可以排除）
 
-先来想想为什么2号不替换为3号，其实我们在“部分替换”节中讨论过，只有当(C<sub>3</sub> - C<sub>2</sub>) * L<sub>2</sub> > C<sub>2</sub> * L<sub>2</sub> + K<sub>2</sub> 时，也就是换灯泡不如买2号电源时才会发生，注意此时C<sub>2</sub> < C<sub>3</sub>。
+先来想想为什么2号不替换为3号，其实我们在“部分替换”节中讨论过，只有当(C<sub>3</sub> - C<sub>2</sub>) * L<sub>2</sub> > K<sub>2</sub> 时，也就是换灯泡不如买2号电源时才会发生，注意此时C<sub>2</sub> < C<sub>3</sub>。
 
 那既然C<sub>2</sub> < C<sub>3</sub>，那为什么1号灯泡不替换成2号灯泡呢，明明灯泡单价更低呀，而且因为2号灯泡不替换，所以2号电源也必然是已经要买的。
 
@@ -123,19 +123,19 @@ tags : ["dp","uva"]
 至此，我们可以得出结论三：**存在多种灯泡时，若低电压灯泡替换到高号灯泡，且中电压灯泡作为被替换到的目标或不替换（可以看作是一种“自替换”），则该方案一定不是最优方案，直接排除**
 
 <div align="center">
-<img src="/img/Uva11400_3.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_3.png" alt="#" width="300px"/>
 </div>
 
 好了，到此为止其实已经讨论所有可能存在的替换方案，有一些替换方案可以直接通过以上三条结论直接排除。例如下面两种替换方案都违反了第三条结论。
 
 <div align="center">
-<img src="/img/Uva11400_6.png" alt="#" width="300px"/>
-<img src="/img/Uva11400_5.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_6.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_5.png" alt="#" width="300px"/>
 </div>
 
 最后我们发现，三条结论过滤出来的**次优方案**只能差不多是长这个样子，没有相互交叉的箭头，而我们将通过计算比较这些次优方案得出最优方案
 <div align="center">
-<img src="/img/Uva11400_4.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_4.png" alt="#" width="300px"/>
 </div>
 
 
@@ -149,7 +149,7 @@ tags : ["dp","uva"]
 灯泡按电压一个一个添加上去，每当添加一个最高压灯泡时，**我们遍历最后一组灯泡分组的所有可能性**（这将产生许多次优方案，之后将比较它们），而前面的所有灯泡的最优方案成本我们已经在之前的遍历中计算过了，直接拿来用
 
 <div align="center">
-<img src="/img/Uva11400_7.png" alt="#" width="300px"/>
+<img src="./img/Uva11400_7.png" alt="#" width="300px"/>
 </div>
 
 状态转移方程：`d[i] = Math.min(d[i],d[j-1] + (sum[i] - sum[j-1]) * lights[i].c + lights[i].k)`，其中
